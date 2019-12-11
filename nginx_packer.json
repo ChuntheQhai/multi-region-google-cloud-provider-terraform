@@ -1,0 +1,30 @@
+{
+    "variables": {
+      "image_name": "nginx-image-template",
+      "project_id": "{{env `GOOGLE_PROJECT`}}",
+      "account_file": "sample_credential.json",
+      "ssh_username": "abelgeek"
+    },
+    "builders": [{
+      "type": "googlecompute",
+      "image_name": "{{user `image_name`}}",
+      "account_file": "{{user `account_file`}}",
+      "project_id": "{{user `project_id`}}",
+      "source_image": "centos-7-v20191014",
+      "source_image_family": "centos-7",
+      "ssh_username": "{{user `ssh_username`}}",
+      "region": "asia-east2",
+      "zone": "asia-east2-a"
+    }],
+    "provisioners": [{
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "sudo yum install epel-release -y",
+        "sudo yum install nginx -y",
+        "sudo systemctl start nginx",
+        "sudo systemctl enable nginx",
+        "sudo yum update -y"
+      ]
+    }]
+  }

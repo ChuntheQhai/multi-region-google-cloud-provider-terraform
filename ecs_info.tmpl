@@ -1,0 +1,12 @@
+#!/bin/bash
+export hostIP=$(curl https://api.ipify.org)
+export hostname=$(hostname)
+
+echo "<h1>Instance Information:</h1>" > /usr/share/nginx/html/index.html
+cat <<EOF >> /usr/share/nginx/html/index.html
+<pre>
+<strong>NGINX running at IP: $hostIP</strong>
+<strong>Hostname:</strong> $hostname
+<strong>Region: ${region}</strong>
+</pre>
+EOF
